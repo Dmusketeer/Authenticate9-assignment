@@ -1,0 +1,12 @@
+{
+  "name": "authenticate-assignment",
+  "version": "1.0.0",
+  "description": "API for Phone directory and spam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dheeraj Tiwari",
+  "license": "ISC"
+}
