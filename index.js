@@ -7,7 +7,7 @@ const userRoutes = require("./Routes/UserRoutes.js"); // User routes
 const spamRoutes = require("./Routes/SpamRoutes"); // Spam routes
 const searchRoutes = require("./Routes/SearchRoutes"); // Search routes
 const contactRoutes = require("./Routes/ContactRoutes"); // Contact routes
-const { generateRandomData } = require("./config/generateRandomData.js"); // Generate random data
+const generateRandomData = require("./config/generateRandomData.js"); // Generate random data
 
 // Initialize Express application
 const app = express();

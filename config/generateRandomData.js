@@ -3,7 +3,7 @@ const User = require("../Models/User");
 const Contact = require("../Models/Contact");
 const Spam = require("../Models/Spam");
 // Function to generate random sample data
-const generateRandomData = async () => {
+exports.generateRandomData = async () => {
   try {
     // Create users
     const users = await User.bulkCreate([
@@ -76,6 +76,3 @@ const generateRandomData = async () => {
     await sequelize.close(); // Close the database connection
   }
 };
-
-// Execute the data generation function
-module.exports = generateRandomData;
