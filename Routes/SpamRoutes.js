@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const spamController = require("../Controllers/SpamControllers.js");
+const { isAuthorized } = require("../Middleware/authMiddleware");
 
 // Route to add a phone number to the spam list
 router.post("/addspam", isAuthorized, spamController.addSpam);
