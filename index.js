@@ -23,6 +23,10 @@ app.use("/api/v1/contact", contactRoutes); // Contact routes
 app.use("/api/v1/spam", spamRoutes); // Spam routes
 app.use("/api/v1/search", searchRoutes); // Search routes
 
+// Route handler for root endpoint
+app.get("/", (req, res) => {
+  res.status(200).json("Hello from Root!"); // Send a JSON response with a greeting message
+});
 // Database synchronization and server initialization
 sequelize
   .sync() // Sync database models
