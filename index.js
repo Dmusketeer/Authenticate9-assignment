@@ -29,7 +29,7 @@ sequelize
   .then(async () => {
     console.log("Database Connected sucessfully."); // Log success message
     // uncomment to Populate database with random sample data
-    // await generateRandomData();
+    generateRandomData;
     // Start server
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`); // Log server start message
