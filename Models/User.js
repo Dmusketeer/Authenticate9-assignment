@@ -1,33 +1,40 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/config");
 
+// Define the User model
 const User = sequelize.define(
-  "User",
+  "User", // Model name
   {
+    // Define model attributes
     userId: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
+      type: DataTypes.INTEGER, // Data type is Integer
+      autoIncrement: true, // Auto-incrementing primary key
+      primaryKey: true, // Primary key
     },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING, // Data type is String
+      allowNull: false, // Not nullable
     },
     PhoneNumber: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
+      type: DataTypes.STRING, // Data type is String
+      unique: true, // Unique constraint
+      allowNull: false, // Not nullable
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING, // Data type is String
+      allowNull: false, // Not nullable
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING, // Data type is String
+      allowNull: true, // Nullable
     },
   },
-  { tableName: "Users", timestamps: false }
+  {
+    // Define additional options
+    tableName: "Users", // Specify the table name
+    timestamps: false, // Disable timestamps
+  }
 );
 
+// Export the User model
 module.exports = User;

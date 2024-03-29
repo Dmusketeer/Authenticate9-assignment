@@ -1,40 +1,43 @@
 const express = require("express"); // Express framework
 const User = require("../Models/User"); // User model
-const bcrypt = require("bcrypt"); // Bcrypt for password hashing
-
+const bcrypt = require("bcryptjs"); // Bcrypt for password hashing
+const { Sequelize } = require("sequelize");
+const { createJWT } = require("../Middleware/authMiddleware");
+// Controller function for user registration
 // Controller function for user registration
 exports.register = async (req, res) => {
   const { name, phoneNumber, password } = req.body; // Extract data from request body
   // Check if required fields are provided
   if (!(name && phoneNumber && password)) {
-    res
+    return res
       .status(400)
-      .json({ err: "Invalid Request. Required fields not provided" });
-    return;
+      .json({ error: "Invalid Request. Required fields not provided" });
   }
   try {
     // Check if the phone number already exists
     const existingUser = await User.findOne({
-      where: { phone_number: phoneNumber },
+      where: { PhoneNumber: phoneNumber },
     });
     if (existingUser) {
-      res
+      return res
         .status(400)
-        .json({ err: "Phone Number already added by a registered user" });
-      return;
+        .json({ error: "Phone Number already added by a registered user" });
     }
     // User registration if phone number doesn't exist
     var email = req.body.email || null; // Extract email from request body
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
     const user = await User.create({
       name: name,
-      phone_number: phoneNumber,
+      PhoneNumber: phoneNumber,
       password: hashedPassword,
       email: email,
-    }); // Create new user
-    res.json({ message: "User Registered Successfully" }); // Send success response
+    }); // Create and save new user
+    return res.json({ message: "User Registered Successfully" }); // Send success response
   } catch (error) {
-    res.status(500).json({ error: "Issue occurred" }); // Send error response
+    console.error("Database error during user creation:", error); // Log database error to console
+    return res
+      .status(500)
+      .json({ error: "Issue occurred during user creation" }); // Send error response
   }
 };
 
@@ -55,7 +58,9 @@ exports.login = async (req, res) => {
         // Compare passwords
         bcrypt.compare(password, user.password, (err, response) => {
           if (response) {
-            res.json({ message: "Login Successful" }); // Send success response
+            res.json({
+              message: "Login Successful",
+            }); // Send success response
           } else {
             res.status(400).json({ err: "Invalid username/password provided" }); // Send error response for invalid password
           }

@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded request
 
 // Define route handlers
 app.use("/api/v1/user", userRoutes); // User routes
+app.use("/api/v1/contact", contactRoutes); // Contact routes
 app.use("/api/v1/spam", spamRoutes); // Spam routes
 app.use("/api/v1/search", searchRoutes); // Search routes
-app.use("/api/v1/contact", contactRoutes); // Contact routes
 
 // Database synchronization and server initialization
 sequelize
