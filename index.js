@@ -7,6 +7,7 @@ const userRoutes = require("./Routes/UserRoutes.js"); // User routes
 const spamRoutes = require("./Routes/SpamRoutes"); // Spam routes
 const searchRoutes = require("./Routes/SearchRoutes"); // Search routes
 const contactRoutes = require("./Routes/ContactRoutes"); // Contact routes
+const { generateRandomData } = require("./config/generateRandomData.js"); // Generate random data
 
 // Initialize Express application
 const app = express();
@@ -25,8 +26,10 @@ app.use("/api/v1/search", searchRoutes); // Search routes
 // Database synchronization and server initialization
 sequelize
   .sync() // Sync database models
-  .then(() => {
+  .then(async () => {
     console.log("Database Connected sucessfully."); // Log success message
+    // Populate database with random sample data
+    await generateRandomData();
     // Start server
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`); // Log server start message
