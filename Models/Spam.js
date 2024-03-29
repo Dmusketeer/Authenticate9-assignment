@@ -3,7 +3,7 @@ const { sequelize } = require("../config/config");
 const User = require("./User");
 
 // Define the SpamNumber model
-const SpamNumber = sequelize.define(
+const Spam = sequelize.define(
   "SpamNumber", // Model name
   {
     // Define model attributes
@@ -30,7 +30,7 @@ const SpamNumber = sequelize.define(
 );
 
 // Remove the id attribute
-SpamNumber.removeAttribute("id");
+Spam.removeAttribute("id");
 
 // Export the SpamNumber model
-module.exports = SpamNumber;
+module.exports = Spam;

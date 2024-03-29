@@ -2,8 +2,7 @@ const express = require("express"); // Express framework
 const User = require("../Models/User"); // User model
 const bcrypt = require("bcryptjs"); // Bcrypt for password hashing
 const { Sequelize } = require("sequelize");
-const { createJWT } = require("../Middleware/authMiddleware");
-// Controller function for user registration
+const secretKey = process.env.TOKEN_SECRET; // Controller function for user registration
 // Controller function for user registration
 exports.register = async (req, res) => {
   const { name, phoneNumber, password } = req.body; // Extract data from request body
@@ -44,31 +43,44 @@ exports.register = async (req, res) => {
 // Controller function for user login
 exports.login = async (req, res) => {
   const { name, password } = req.body; // Extract data from request body
+
   // Check if required fields are provided
   if (!(name && password)) {
-    res
+    return res
       .status(400)
       .json({ err: "Invalid Request. Required fields not provided" });
-    return;
   }
+
   try {
     // Find user by name
-    User.findOne({ where: { name: name } }).then((user) => {
-      if (user) {
-        // Compare passwords
-        bcrypt.compare(password, user.password, (err, response) => {
-          if (response) {
-            res.json({
-              message: "Login Successful",
-            }); // Send success response
-          } else {
-            res.status(400).json({ err: "Invalid username/password provided" }); // Send error response for invalid password
-          }
-        });
-      }
-    });
+    const user = await User.findOne({ where: { name: name } });
+
+    // Check if user exists
+    if (!user) {
+      return res
+        .status(400)
+        .json({ err: "Invalid username/password provided" }); // Send error response for invalid username
+    }
+
+    // Compare passwords
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordMatch) {
+      // Generate JWT token
+      const token = jwt.sign({ userId: user.userId }, secretKey, {
+        expiresIn: "1h",
+      });
+      return res.json({
+        message: "Login Successful",
+        token,
+      }); // Send success response
+    } else {
+      return res
+        .status(400)
+        .json({ err: "Invalid username/password provided" }); // Send error response for invalid password
+    }
   } catch (error) {
-    res.status(400).json({ err }); // Send error response
+    return res.status(500).json({ err: "Internal Server Error" }); // Send error response for internal server error
   }
 };
 

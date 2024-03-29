@@ -16,7 +16,7 @@ exports.addContact = async (req, res) => {
   try {
     // Check if the contact already exists
     const contact = await Contact.findOne({
-      where: { PhoneNumber: phoneNumber, isContactOf: userid },
+      where: { phoneNumber: phoneNumber, isContactOf: userid },
     });
 
     if (contact) {

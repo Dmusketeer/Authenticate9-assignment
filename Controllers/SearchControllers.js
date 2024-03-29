@@ -11,31 +11,31 @@ exports.searchByNumber = async (req, res) => {
       // Get all spam numbers with count
       const spamNumbers = await Spam.findAll({
         attributes: [
-          "phoneNumber",
+          "PhoneNumber",
           [Sequelize.fn("COUNT", Sequelize.col("*")), "spamCount"],
         ],
-        group: ["phoneNumber"],
+        group: ["PhoneNumber"],
       });
 
       // Create a dictionary of spam numbers with their counts
       const spamNumbersDict = spamNumbers.reduce((acc, spamNumber) => {
-        acc[spamNumber.dataValues.phoneNumber] =
+        acc[spamNumber.dataValues.PhoneNumber] =
           spamNumber.dataValues.spamCount;
         return acc;
       }, {});
 
       // Check if the number belongs to a registered user
       const registeredUser = await User.findOne({
-        where: { phoneNumber: number },
+        where: { PhoneNumber: number },
       });
       if (registeredUser) {
         res.json({
           results: [
             {
               name: registeredUser.name,
-              phone_number: registeredUser.phoneNumber,
+              PhoneNumber: registeredUser.PhoneNumber,
               noOfUsersReportedAsSpam:
-                spamNumbersDict[registeredUser.phoneNumber] || 0,
+                spamNumbersDict[registeredUser.PhoneNumber] || 0,
               email: registeredUser.email,
             },
           ],
@@ -43,22 +43,22 @@ exports.searchByNumber = async (req, res) => {
       } else {
         // Check if the number belongs to any contact
         const contacts = await Contact.findAll({
-          attributes: ["name", "phoneNumber"],
-          where: { phoneNumber: number },
+          attributes: ["name", "PhoneNumber"],
+          where: { PhoneNumber: number },
         });
         if (contacts.length > 0) {
           res.json({
             results: contacts.map((contact) => ({
               name: contact.name,
-              phoneNumber: contact.phone_number,
+              PhoneNumber: contact.Phone_number,
               noOfUsersReportedAsSpam:
-                spamNumbersDict[contact.phoneNumber] || 0,
+                spamNumbersDict[contact.PhoneNumber] || 0,
             })),
           });
         } else {
           // Check if the number is marked as spam
           const count = await Spam.count({
-            where: { phoneNumber: number },
+            where: { PhoneNumber: number },
           });
           if (count > 0) {
             res.json({
@@ -95,7 +95,7 @@ exports.searchByName = async (req, res) => {
 
       // Find contacts whose names start with provided name
       const contacts1 = await Contact.findAll({
-        attributes: ["name", "phoneNumber"],
+        attributes: ["name", "PhoneNumber"],
         where: {
           name: {
             [Op.iLike]: name + "%",
@@ -116,7 +116,7 @@ exports.searchByName = async (req, res) => {
 
       // Find contacts whose names contain provided name
       const contacts2 = await Contact.findAll({
-        attributes: ["name", "phoneNumber"],
+        attributes: ["name", "PhoneNumber"],
         where: {
           name: {
             [Op.notILike]: name + "%",
@@ -128,15 +128,15 @@ exports.searchByName = async (req, res) => {
       // Find all spam numbers with their counts
       const spamNumbers = await Spam.findAll({
         attributes: [
-          "phoneNumber",
+          "PhoneNumber",
           [Sequelize.fn("COUNT", Sequelize.col("*")), "spamCount"],
         ],
-        group: ["phoneNumber"],
+        group: ["PhoneNumber"],
       });
 
       // Create a dictionary of spam numbers with their counts
       const spamNumbersDict = spamNumbers.reduce((acc, spamNumber) => {
-        acc[spamNumber.dataValues.phoneNumber] =
+        acc[spamNumber.dataValues.PhoneNumber] =
           spamNumber.dataValues.spamCount;
         return acc;
       }, {});
@@ -148,13 +148,13 @@ exports.searchByName = async (req, res) => {
           !namePhoneArray.some(
             (obj) =>
               obj.name === user.dataValues.name &&
-              obj.phoneNumber === user.dataValues.phoneNumber
+              obj.PhoneNumber === user.dataValues.PhoneNumber
           )
         ) {
           namePhoneArray.push({
             name: user.dataValues.name,
-            phoneNumber: user.dataValues.phoneNumber,
-            spamCount: spamNumbersDict[user.dataValues.phoneNumber] || 0,
+            PhoneNumber: user.dataValues.PhoneNumber,
+            spamCount: spamNumbersDict[user.dataValues.PhoneNumber] || 0,
           });
         }
       });
@@ -164,13 +164,13 @@ exports.searchByName = async (req, res) => {
           !namePhoneArray.some(
             (obj) =>
               obj.name === contact.dataValues.name &&
-              obj.phoneNumber === contact.dataValues.phoneNumber
+              obj.PhoneNumber === contact.dataValues.PhoneNumber
           )
         ) {
           namePhoneArray.push({
             name: contact.dataValues.name,
-            phoneNumber: contact.dataValues.phoneNumber,
-            spamCount: spamNumbersDict[contact.dataValues.phoneNumber] || 0,
+            PhoneNumber: contact.dataValues.PhoneNumber,
+            spamCount: spamNumbersDict[contact.dataValues.PhoneNumber] || 0,
           });
         }
       });
@@ -180,13 +180,13 @@ exports.searchByName = async (req, res) => {
           !namePhoneArray.some(
             (obj) =>
               obj.name === user.dataValues.name &&
-              obj.phoneNumber === user.dataValues.phoneNumber
+              obj.PhoneNumber === user.dataValues.PhoneNumber
           )
         ) {
           namePhoneArray.push({
             name: user.dataValues.name,
-            phoneNumber: user.dataValues.phoneNumber,
-            spamCount: spamNumbersDict[user.dataValues.phoneNumber] || 0,
+            PhoneNumber: user.dataValues.PhoneNumber,
+            spamCount: spamNumbersDict[user.dataValues.PhoneNumber] || 0,
           });
         }
       });
@@ -196,13 +196,13 @@ exports.searchByName = async (req, res) => {
           !namePhoneArray.some(
             (obj) =>
               obj.name === contact.dataValues.name &&
-              obj.phoneNumber === contact.dataValues.phoneNumber
+              obj.PhoneNumber === contact.dataValues.PhoneNumber
           )
         ) {
           namePhoneArray.push({
             name: contact.dataValues.name,
-            phoneNumber: contact.dataValues.phoneNumber,
-            spamCount: spamNumbersDict[contact.dataValues.phoneNumber] || 0,
+            PhoneNumber: contact.dataValues.PhoneNumber,
+            spamCount: spamNumbersDict[contact.dataValues.PhoneNumber] || 0,
           });
         }
       });
