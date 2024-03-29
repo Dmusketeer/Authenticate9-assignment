@@ -1,7 +1,6 @@
 // Import necessary packages and modules
 const express = require("express"); // Express framework
 const bodyParser = require("body-parser"); // Middleware for parsing request bodies
-const cors = require("cors"); // Middleware for enabling Cross-Origin Resource Sharing (CORS)
 require("dotenv").config(); // Load environment variables
 const { sequelize } = require("./config/config.js"); // Sequelize instance for database connection
 const userRoutes = require("./Routes/UserRoutes.js"); // User routes
@@ -14,7 +13,6 @@ const app = express();
 const PORT = process.env.PORT || 3000; // Port number
 
 // Middleware setup
-app.use(cors()); // Enable CORS
 app.use(bodyParser.json()); // Parse JSON requests
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded requests
 

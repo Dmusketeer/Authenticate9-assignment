@@ -1,5 +1,5 @@
-```markdown
-# Project Name
+
+# Authenticate-assignment
 
 ## Description
 This project is a RESTful API built using Node.js and Express.js for managing users, contacts, spam numbers, and performing search operations.
@@ -7,7 +7,7 @@ This project is a RESTful API built using Node.js and Express.js for managing us
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Dmusketeer/Authenticate9-assignment.git
    ```
 2. Install dependencies:
    ```bash
@@ -16,9 +16,11 @@ This project is a RESTful API built using Node.js and Express.js for managing us
 3. Set up environment variables:
    Create a `.env` file in the root directory and define the following variables:
    ```
+  
    PORT=<port_number>
+   TOKEN_SECRET=<TOKEN_SECRET>
    DB_NAME=<database_name>
-   DB_USER=<database_user>
+   DB_USERNAME=<database_user>
    DB_PASSWORD=<database_password>
    DB_HOST=<database_host>
    ```
@@ -38,6 +40,7 @@ The server will start listening on the specified port.
 - **POST /api/v1/contact/addcontact**: Add a new contact
 - **GET /api/v1/spam/allspamnumbers**: Get all spam numbers
 - **POST /api/v1/spam/addspam**: Add a new spam number
+- **POST /api/v1/spam/allspamreportedbyuser**: all spam number reported by user
 - **GET /api/v1/search/searchbyname**: Search contacts by name
 - **GET /api/v1/search/searchbynumber**: Search contacts by number
 
@@ -46,13 +49,4 @@ The server will start listening on the specified port.
 - Express.js
 - Sequelize
 - PostgreSQL
-- dotenv
 
-## Contributors
-- [Contributor 1](link_to_contributor1_profile)
-- [Contributor 2](link_to_contributor2_profile)
-
-## License
-This project is licensed under the [MIT License](link_to_license).
-```
-Replace `<repository_url>`, `<port_number>`, `<database_name>`, `<database_user>`, `<database_password>`, `<database_host>`, `link_to_contributor1_profile`, `link_to_contributor2_profile`, and `link_to_license` with appropriate values.
