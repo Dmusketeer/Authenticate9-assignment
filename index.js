@@ -28,8 +28,8 @@ sequelize
   .sync() // Sync database models
   .then(async () => {
     console.log("Database Connected sucessfully."); // Log success message
-    // Populate database with random sample data
-    await generateRandomData();
+    // uncomment to Populate database with random sample data
+    // await generateRandomData();
     // Start server
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`); // Log server start message
