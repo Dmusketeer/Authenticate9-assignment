@@ -51,7 +51,7 @@ const generateRandomData = async () => {
         contacts.push({
           userId: user.id,
           name: `Contact ${i + 1}`,
-          phoneNumber: `123456789${i}`,
+          PhoneNumber: `123456789${i}`,
           email: `contact${i + 1}@gmail.com`,
         });
       }
@@ -64,7 +64,7 @@ const generateRandomData = async () => {
       // Generate 20 random spam numbers
       spamNumbers.push({
         addedBy: users[Math.floor(Math.random() * users.length)].id,
-        UserPhoneNumber: `987654567${i}`,
+        UserPhoneNumber: `987654321${i}`,
       });
     }
     await Spam.bulkCreate(spamNumbers);
