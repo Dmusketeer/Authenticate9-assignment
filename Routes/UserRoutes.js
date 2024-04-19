@@ -3,7 +3,6 @@ const express = require("express"); // Express framework
 const router = express.Router(); // Router instance
 const userController = require("../Controllers/UserControllers"); // User controller module
 const { isAuthorized } = require("../Middleware/authMiddleware");
-const jwt = require("jsonwebtoken");
 
 // Define user routes
 router.post("/register", userController.register); // Route for user registration
