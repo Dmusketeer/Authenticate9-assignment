@@ -50,3 +50,7 @@ The server will start listening on the specified port.
 - Sequelize
 - PostgreSQL
 
+
+1.GitHub Repository: [Dmusketeer/Authenticate9-assignment (github.com)]
+2.Postman Collection: [Authenticate-assignment - New Team Workspace (postman.co)]
+3.Deployed Assignment: [https://authenticate9-assignment2.onrender.com]

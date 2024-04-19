@@ -3,6 +3,7 @@ const User = require("../Models/User"); // User model
 const bcrypt = require("bcryptjs"); // Bcrypt for password hashing
 const { Sequelize } = require("sequelize");
 const secretKey = process.env.TOKEN_SECRET; // Controller function for user registration
+const jwt = require("jsonwebtoken");
 // Controller function for user registration
 exports.register = async (req, res) => {
   const { name, phoneNumber, password } = req.body; // Extract data from request body
